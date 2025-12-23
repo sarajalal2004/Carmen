@@ -21,4 +21,14 @@ SELECT countrycode, language, isofficial FROM countrylanguage WHERE countrycode 
 
 
 
+-- Clue #3: We have new news on the classes Carmen attended – our gumshoes tell us she's moved on
+-- to a different country, a country where people speak only the language she was learning. Find out which
+--  nearby country speaks nothing but that language.
+
+SELECT code, name, region, population FROM country WHERE region like 'Southern Europe' AND code NOT like 'VAT' AND code in (SELECT countrycode FROM countrylanguage where language like 'Italian' AND percentage = 100 GROUP BY  countrycode Having Count(language) = 1);
+
+--  code |    name    |     region      | population
+-- ------+------------+-----------------+------------
+--  SMR  | San Marino | Southern Europe |      27000
+
 
