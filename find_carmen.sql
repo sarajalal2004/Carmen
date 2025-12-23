@@ -44,3 +44,15 @@ SELECT code, name, region, population FROM country WHERE region like 'Southern E
 --  Serravalle
 
 
+-- Clue #5: Oh no, she pulled a switch – there are two cities with very similar names, but in totally different
+-- parts of the globe! She's headed to South America as we speak; go find a city whose name is like the one we were
+-- headed to, but doesn't end the same. Find out the city, and do another search for what country it's in. Hurry!
+
+SELECT distinct(city.name) As city, country.name As country, country.code FROM city, country WHERE 'Serravalle' LIKE '%' || city.name || '%' AND country.region = 'South America' AND city.name NOT LIKE 'Serravalle' AND city.countrycode = country.code;
+
+--  city  | country | code
+-- -------+---------+------
+--  Serra | Brazil  | BRA
+
+
+
